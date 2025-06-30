@@ -1,0 +1,22 @@
+[
+  { "code": "PRODUCT:PRODUCT", "label": "Product" },
+  { "code": "PRODUCT:JURISDICTION", "label": "Jurisdiction" },
+  { "code": "PRODUCT:TERM_SELECTION_3_YEARS", "label": "3 Years" },
+  { "code": "PRODUCT:TERM_SELECTION_5_YEARS", "label": "5 Years" },
+  { "code": "PRODUCT:TERM_SELECTION_7_YEARS", "label": "7 Years" },
+  { "code": "PRODUCT:TYPE_OWNERSHIP_NATURAL_PERSON", "label": "Natural Person" },
+  { "code": "PRODUCT:TYPE_OWNERSHIP_TRUST", "label": "Trust" },
+  { "code": "PRODUCT:TYPE_OWNERSHIP_JOINT", "label": "Joint" },
+  { "code": "PRODUCT:TYPE_OWNERSHIP_OTHER_ENTITY", "label": "Other Entity" },
+  { "code": "PRODUCT:PLAN_TYPE_NONQUALIFIED", "label": "Nonqualified" },
+  { "code": "PRODUCT:PLAN_TYPE_ROTH_IRA", "label": "Roth IRA" },
+  { "code": "PRODUCT:PLAN_TYPE_IRA", "label": "IRA" },
+  { "code": "PRODUCT:PLAN_TYPE_INHERITED_IRA", "label": "Inherited IRA" },
+  { "code": "PRODUCT:PLAN_TYPE_INHERITED_ROTH_IRA", "label": "Inherited Roth IRA" },
+  { "code": "PRODUCT:PLAN_TYPE_SEP_IRA", "label": "SEP IRA" },
+  { "code": "PRODUCT:PLAN_TYPE_SIMPLE_IRA", "label": "Simple IRA" },
+  { "code": "PRODUCT:ACCOUNT_DESIGNATION_NONE", "label": "None" },
+  { "code": "PRODUCT:ACCOUNT_DESIGNATION_CUSTODIAL", "label": "Custodial" },
+  { "code": "PRODUCT:ACCOUNT_DESIGNATION_TRUST", "label": "Trust" },
+  { "code": "PRODUCT:ACCOUNT_DESIGNATION_UGMA_UTMA", "label": "UGMA/UTMA" }
+] 

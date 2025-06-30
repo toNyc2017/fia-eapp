@@ -1,0 +1,100 @@
+FIA eApp Project Overview
+========================
+
+Project: Fixed Indexed Annuity (FIA) Electronic Application (eApp) Platform
+Company: Ceres Life
+Document Type: Project Overview & Requirements Summary
+Date: 2025-01-27
+
+---
+
+PROJECT OVERVIEW
+===============
+
+You're building a Fixed Indexed Annuity (FIA) Electronic Application (eApp) platform for Ceres Life. This is a sophisticated financial application system that allows financial advisors to submit applications for FIA products on behalf of their clients.
+
+KEY REQUIREMENTS & CONTEXT
+==========================
+
+Application Structure (13 main sections):
+1. Start Page / Authentication
+2. Applicant Information  
+3. Beneficiary Designation
+4. Plan Type & Qualified Funding
+5. Product Selection
+6. Rider Selection
+7. Index Strategy Allocation
+8. Replacement Questionnaire
+9. Banking Information
+10. Agent Validation
+11. Suitability Questionnaire
+12. Review & Signature
+13. Submission & Status Handling
+
+Technical Integrations:
+- GIACT: Bank account validation (REST API)
+- NIPR: License validation (SOAP)
+- 1035 Yellow Pages: Replacement annuity validation
+- BIG: OFAC screening
+- FAST: ACORD 103-compatible export
+- Snowflake: Internal ETL for metadata logging
+
+Key Features:
+- Dynamic reflexive questions
+- Multiple funding types
+- Customizable rider selection
+- Allocation logic across crediting strategies
+- Third-party data validations
+- Complex validation rules (e.g., SSN uniqueness + OFAC, allocation percentages must sum to 100%)
+
+Development Approach:
+- Modular development using internal engineers + AI tools
+- Based on existing MYGA eApp experience
+- Comprehensive field-level specifications with validation logic
+- TypeScript/React frontend with robust API integrations
+
+FIELD-LEVEL SPECIFICATION HIGHLIGHTS
+====================================
+
+Example validation rules:
+| Field Name                  | Required | Type        | Validation Logic                                 |
+|----------------------------|----------|-------------|--------------------------------------------------|
+| Owner SSN                  | Yes      | SSN         | Must pass regex + uniqueness + OFAC             |
+| Plan Type                  | Yes      | Dropdown    | One of [Non-Qualified, IRA, Roth, SEP]          |
+| Index Allocations          | Yes      | Integer %   | Sum must = 100                                  |
+| Rider Payout Age           | If rider | Integer     | Must be ≥ 59.5 and ≤ 90                         |
+| Bank Routing Number        | Yes      | 9-digit int | GIACT call; must pass ABA checksum              |
+| State of Sale              | Yes      | Dropdown    | Used in NIPR license validation                 |
+| Replacement Carrier Name   | If repl. | Text        | Required if Replacement = Yes                  |
+
+INTEGRATION NOTES
+================
+
+- GIACT: REST API with JSON payload
+- NIPR: SOAP-based license validation
+- 1035 Yellow Pages: GET/POST exchange
+- BIG: OFAC screening (binary flag + reason code)
+- FAST: ACORD 103-compatible export (via secure SFTP or API POST)
+- Snowflake: Call internal ETL endpoint to log app metadata
+
+FUTURE ENHANCEMENTS
+==================
+
+- Allow multiple product types in single session (FIA + MYGA toggle)
+- Auto-recommendation of allocation mix based on client profile
+- AI suitability assistant to flag inconsistencies
+- Mobile-native UI enhancement
+
+PROJECT CONTEXT
+==============
+
+This project builds upon the existing MYGA (Multi-Year Guaranteed Annuity) eApp experience, incorporating lessons learned and expanding functionality for the more complex FIA product. The FIA product includes additional investment options (index-linked crediting strategies) and more rider options (e.g., guaranteed lifetime withdrawal benefits) compared to the simpler MYGA product.
+
+The development team consists of internal engineers working with AI tools for rapid iteration, following a modular approach where sections of the PRD can be fed to AI coding agents for piece-by-piece development.
+
+---
+
+Document created based on analysis of:
+- FIA_eApp_PRD_CeresLife_v2.txt
+- Prompt for generating eApp requirements doc 06282025.docx
+- Various supporting documents in /docs directory 

@@ -1,0 +1,67 @@
+
+Product Requirements Document (PRD)
+FIA eApplication Platform
+
+---
+
+Document Purpose
+This PRD defines the product scope, user stories, detailed field-level specifications, validation logic, data flows, UI workflows, and external dependencies for the Ceres Life FIA (Fixed Indexed Annuity) electronic application (eApp). The intent is to support modular development using internal engineers and generative AI tools for rapid iteration.
+
+Author: ChatGPT, based on structured analysis of the MYGA and FIA product specifications, regulatory applications, testbed validation spreadsheet, Snowflake integration documentation, and system screenshots.
+
+Document Version: Draft v2.0
+Last Updated: 2025-06-29
+
+---
+
+1. Executive Summary
+The FIA eApp is a digital front-end platform used by financial advisors to submit applications for Fixed Indexed Annuity products. It includes dynamic reflexive questions, multiple funding types, customizable rider selection, allocation logic across crediting strategies, and third-party data validations. The platform integrates with internal systems (FAST, Snowflake) and third-party services (GIACT, NIPR, BIG, 1035 Yellow Pages).
+
+---
+
+2. Application Structure & UI Flow
+1. Start Page / Authentication
+2. Applicant Information
+3. Beneficiary Designation
+4. Plan Type & Qualified Funding
+5. Product Selection
+6. Rider Selection
+7. Index Strategy Allocation
+8. Replacement Questionnaire
+9. Banking Information
+10. Agent Validation
+11. Suitability Questionnaire
+12. Review & Signature
+13. Submission & Status Handling
+
+---
+
+3. Field-Level Specification Highlights
+(Example)
+| Field Name                  | Required | Type        | Validation Logic                                 |
+|----------------------------|----------|-------------|--------------------------------------------------|
+| Owner SSN                  | Yes      | SSN         | Must pass regex + uniqueness + OFAC             |
+| Plan Type                  | Yes      | Dropdown    | One of [Non-Qualified, IRA, Roth, SEP]          |
+| Index Allocations          | Yes      | Integer %   | Sum must = 100                                  |
+| Rider Payout Age           | If rider | Integer     | Must be ≥ 59.5 and ≤ 90                         |
+| Bank Routing Number        | Yes      | 9-digit int | GIACT call; must pass ABA checksum              |
+| State of Sale              | Yes      | Dropdown    | Used in NIPR license validation                 |
+| Replacement Carrier Name   | If repl. | Text        | Required if Replacement = Yes                  |
+
+---
+
+4. Integration Notes
+- GIACT: REST API with JSON payload
+- NIPR: SOAP-based license validation
+- 1035 Yellow Pages: GET/POST exchange
+- BIG: OFAC screening (binary flag + reason code)
+- FAST: ACORD 103-compatible export (via secure SFTP or API POST)
+- Snowflake: Call internal ETL endpoint to log app metadata
+
+---
+
+5. Future Enhancements
+- Allow multiple product types in single session (FIA + MYGA toggle)
+- Auto-recommendation of allocation mix based on client profile
+- AI suitability assistant to flag inconsistencies
+- Mobile-native UI enhancement
