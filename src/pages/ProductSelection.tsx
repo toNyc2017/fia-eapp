@@ -48,7 +48,7 @@ const ProductSelection: React.FC = () => {
     // Save to localStorage
     localStorage.setItem(`fia_app_${sessionId}_product_selection`, JSON.stringify(formData));
     logInfo('form', 'Product selection submitted', { ...formData }, sessionId);
-    navigate(`/fia-application/${sessionId}/step/3`);
+    navigate(`/fia-application/${sessionId}/owner-info`);
   };
 
   const handleBack = () => {

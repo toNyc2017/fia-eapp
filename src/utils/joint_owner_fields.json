@@ -1,0 +1,158 @@
+[
+  {
+    "code": "JOINT_OWNER:IS_US_CITIZEN",
+    "label": "Is Us Citizen"
+  },
+  {
+    "code": "JOINT_OWNER:RELATIONSHIP_TO_OWNER",
+    "label": "Relationship To Owner"
+  },
+  {
+    "code": "JOINT_OWNER:DATE_OF_BIRTH",
+    "label": "Date Of Birth"
+  },
+  {
+    "code": "JOINT_OWNER:GENDER_MALE",
+    "label": "Gender Male"
+  },
+  {
+    "code": "JOINT_OWNER:GENDER_FEMALE",
+    "label": "Gender Female"
+  },
+  {
+    "code": "JOINT_OWNER:GOVERMENT_ID_SSN_TYPE",
+    "label": "Goverment Id Ssn Type"
+  },
+  {
+    "code": "JOINT_OWNER:GOVERMENT_ID_EIN_TIN_TYPE",
+    "label": "Goverment Id Ein Tin Type"
+  },
+  {
+    "code": "JOINT_OWNER:GOVERMENT_ID_VALUE",
+    "label": "Goverment Id Value"
+  },
+  {
+    "code": "JOINT_OWNER:PREFIX",
+    "label": "Prefix"
+  },
+  {
+    "code": "JOINT_OWNER:FIRST_NAME",
+    "label": "First Name"
+  },
+  {
+    "code": "JOINT_OWNER:MIDDLE_NAME",
+    "label": "Middle Name"
+  },
+  {
+    "code": "JOINT_OWNER:LAST_NAME",
+    "label": "Last Name"
+  },
+  {
+    "code": "JOINT_OWNER:SUFFIX",
+    "label": "Suffix"
+  },
+  {
+    "code": "JOINT_OWNER:MARITAL_STATUS_MARRIED",
+    "label": "Marital Status Married"
+  },
+  {
+    "code": "JOINT_OWNER:MARITAL_STATUS_SINGLE",
+    "label": "Marital Status Single"
+  },
+  {
+    "code": "JOINT_OWNER:MARITAL_STATUS_DIVORCED",
+    "label": "Marital Status Divorced"
+  },
+  {
+    "code": "JOINT_OWNER:MARITAL_STATUS_SEPARATED",
+    "label": "Marital Status Separated"
+  },
+  {
+    "code": "JOINT_OWNER:MARITAL_STATUS_WIDOWED",
+    "label": "Marital Status Widowed"
+  },
+  {
+    "code": "JOINT_OWNER:ADDRESS",
+    "label": "Address"
+  },
+  {
+    "code": "JOINT_OWNER:CITY",
+    "label": "City"
+  },
+  {
+    "code": "JOINT_OWNER:STATE",
+    "label": "State"
+  },
+  {
+    "code": "JOINT_OWNER:ZIP",
+    "label": "Zip"
+  },
+  {
+    "code": "JOINT_OWNER:MAILING_SAME_AS_ADDRESS",
+    "label": "Mailing Same As Address"
+  },
+  {
+    "code": "JOINT_OWNER:MAILING_ADDRESS",
+    "label": "Mailing Address"
+  },
+  {
+    "code": "JOINT_OWNER:MAILING_CITY",
+    "label": "Mailing City"
+  },
+  {
+    "code": "JOINT_OWNER:MAILING_STATE",
+    "label": "Mailing State"
+  },
+  {
+    "code": "JOINT_OWNER:MAILING_ZIP",
+    "label": "Mailing Zip"
+  },
+  {
+    "code": "JOINT_OWNER:PHONE",
+    "label": "Phone"
+  },
+  {
+    "code": "JOINT_OWNER:EMAIL",
+    "label": "Email"
+  },
+  {
+    "code": "OWNER_STATEMENT:JOINT_OWNER_DATED_AT_CITY",
+    "label": "Joint Owner Dated At City"
+  },
+  {
+    "code": "OWNER_STATEMENT:JOINT_OWNER_DATED_AT_STATE",
+    "label": "Joint Owner Dated At State"
+  },
+  {
+    "code": "OWNER_STATEMENT:JOINT_OWNER_DATED_AT_DATE",
+    "label": "Joint Owner Dated At Date"
+  },
+  {
+    "code": "OWNER_STATEMENT:JOINT_OWNER_SIGNATURE",
+    "label": "Joint Owner Signature"
+  },
+  {
+    "code": "OWNER_STATEMENT:JOINT_OWNER_PRINTED_NAME",
+    "label": "Joint Owner Printed Name"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:JOINT_OWNER_DATED_AT_CITY",
+    "label": "Joint Owner Dated At City"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:JOINT_OWNER_DATED_AT_STATE",
+    "label": "Joint Owner Dated At State"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:JOINT_OWNER_DATED_AT_DATE",
+    "label": "Joint Owner Dated At Date"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:JOINT_OWNER_SIGNATURE",
+    "label": "Joint Owner Signature"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:JOINT_OWNER_PRINTED_NAME",
+    "label": "Joint Owner Printed Name"
+  }
+]

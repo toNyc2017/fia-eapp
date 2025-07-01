@@ -1,0 +1,194 @@
+[
+  {
+    "code": "PRODUCT:TYPE_OWNERSHIP_NATURAL_PERSON",
+    "label": "Type Ownership Natural Person"
+  },
+  {
+    "code": "PRODUCT:TYPE_OWNERSHIP_TRUST",
+    "label": "Type Ownership Trust"
+  },
+  {
+    "code": "PRODUCT:TYPE_OWNERSHIP_JOINT",
+    "label": "Type Ownership Joint"
+  },
+  {
+    "code": "PRODUCT:TYPE_OWNERSHIP_OTHER_ENTITY",
+    "label": "Type Ownership Other Entity"
+  },
+  {
+    "code": "OWNER:IS_US_CITIZEN",
+    "label": "Is Us Citizen"
+  },
+  {
+    "code": "OWNER:DATE_OF_BIRTH",
+    "label": "Date Of Birth"
+  },
+  {
+    "code": "OWNER:GENDER_MALE",
+    "label": "Gender Male"
+  },
+  {
+    "code": "OWNER:GENDER_FEMALE",
+    "label": "Gender Female"
+  },
+  {
+    "code": "OWNER:GOVERMENT_ID_SSN_TYPE",
+    "label": "Goverment Id Ssn Type"
+  },
+  {
+    "code": "OWNER:GOVERMENT_ID_EIN_TIN_TYPE",
+    "label": "Goverment Id Ein Tin Type"
+  },
+  {
+    "code": "OWNER:GOVERMENT_ID_VALUE",
+    "label": "Goverment Id Value"
+  },
+  {
+    "code": "OWNER:TRUST_ENTITY_NAME",
+    "label": "Trust Entity Name"
+  },
+  {
+    "code": "OWNER:PREFIX",
+    "label": "Prefix"
+  },
+  {
+    "code": "OWNER:FIRST_NAME",
+    "label": "First Name"
+  },
+  {
+    "code": "OWNER:MIDDLE_NAME",
+    "label": "Middle Name"
+  },
+  {
+    "code": "OWNER:LAST_NAME",
+    "label": "Last Name"
+  },
+  {
+    "code": "OWNER:SUFFIX",
+    "label": "Suffix"
+  },
+  {
+    "code": "OWNER:MARITAL_STATUS_MARRIED",
+    "label": "Marital Status Married"
+  },
+  {
+    "code": "OWNER:MARITAL_STATUS_SINGLE",
+    "label": "Marital Status Single"
+  },
+  {
+    "code": "OWNER:MARITAL_STATUS_DIVORCED",
+    "label": "Marital Status Divorced"
+  },
+  {
+    "code": "OWNER:MARITAL_STATUS_SEPARATED",
+    "label": "Marital Status Separated"
+  },
+  {
+    "code": "OWNER:MARITAL_STATUS_WIDOWED",
+    "label": "Marital Status Widowed"
+  },
+  {
+    "code": "OWNER:ADDRESS",
+    "label": "Address"
+  },
+  {
+    "code": "OWNER:CITY",
+    "label": "City"
+  },
+  {
+    "code": "OWNER:STATE",
+    "label": "State"
+  },
+  {
+    "code": "OWNER:ZIP",
+    "label": "Zip"
+  },
+  {
+    "code": "OWNER:MAILING_SAME_AS_ADDRESS",
+    "label": "Mailing Same As Address"
+  },
+  {
+    "code": "OWNER:MAILING_ADDRESS",
+    "label": "Mailing Address"
+  },
+  {
+    "code": "OWNER:MAILING_CITY",
+    "label": "Mailing City"
+  },
+  {
+    "code": "OWNER:MAILING_STATE",
+    "label": "Mailing State"
+  },
+  {
+    "code": "OWNER:MAILING_ZIP",
+    "label": "Mailing Zip"
+  },
+  {
+    "code": "OWNER:PHONE",
+    "label": "Phone"
+  },
+  {
+    "code": "OWNER:EMAIL",
+    "label": "Email"
+  },
+  {
+    "code": "ANNUITANT:RELATIONSHIP_TO_OWNER",
+    "label": "Relationship To Owner"
+  },
+  {
+    "code": "JOINT_ANNUITANT:RELATIONSHIP_TO_OWNER",
+    "label": "Relationship To Owner"
+  },
+  {
+    "code": "OWNER_STATEMENT:AGENT_RECOMMENDATION",
+    "label": "Agent Recommendation"
+  },
+  {
+    "code": "OWNER_STATEMENT:LIMITED_INFO",
+    "label": "Limited Info"
+  },
+  {
+    "code": "OWNER_STATEMENT:REFUSE",
+    "label": "Refuse"
+  },
+  {
+    "code": "OWNER_STATEMENT:OWNER_DATED_AT_CITY",
+    "label": "Owner Dated At City"
+  },
+  {
+    "code": "OWNER_STATEMENT:OWNER_DATED_AT_STATE",
+    "label": "Owner Dated At State"
+  },
+  {
+    "code": "OWNER_STATEMENT:OWNER_DATED_AT_DATE",
+    "label": "Owner Dated At Date"
+  },
+  {
+    "code": "OWNER_STATEMENT:OWNER_SIGNATURE",
+    "label": "Owner Signature"
+  },
+  {
+    "code": "OWNER_STATEMENT:OWNER_PRINTED_NAME",
+    "label": "Owner Printed Name"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:OWNER_DATED_AT_CITY",
+    "label": "Owner Dated At City"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:OWNER_DATED_AT_STATE",
+    "label": "Owner Dated At State"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:OWNER_DATED_AT_DATE",
+    "label": "Owner Dated At Date"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:OWNER_SIGNATURE",
+    "label": "Owner Signature"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT:OWNER_PRINTED_NAME",
+    "label": "Owner Printed Name"
+  }
+]
