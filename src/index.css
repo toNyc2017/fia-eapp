@@ -25,8 +25,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -66,4 +64,178 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Ceres eApp LoginPage styles */
+.ceres-login-bg {
+  min-height: 100vh;
+  background: #f7fafd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+}
+.ceres-login-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 40px 32px 32px 32px;
+  max-width: 370px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ceres-logo-placeholder {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
+  color: #333;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+}
+.ceres-login-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #003366;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.ceres-login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.ceres-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ceres-label {
+  font-size: 0.98rem;
+  color: #003366;
+  font-weight: 500;
+}
+.ceres-input {
+  padding: 8px 8px;
+  border: 1.5px solid #dbe6ef;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f7fafd;
+  color: #222;
+  transition: border-color 0.2s;
+}
+.ceres-input:focus {
+  border-color: #009fe3;
+  outline: none;
+}
+.ceres-login-btn {
+  background: #009fe3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 0;
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ceres-login-btn:hover {
+  background: #007bb8;
+}
+.ceres-login-demo {
+  margin-top: 22px;
+  color: #888;
+  font-size: 0.95rem;
+  text-align: center;
+}
+@media (max-width: 500px) {
+  .ceres-login-card {
+    padding: 24px 8px 18px 8px;
+    max-width: 98vw;
+  }
+}
+
+/* Centering and card styles for Ceres eApp */
+.ceres-center-bg {
+  min-height: 100vh;
+  background: #f7fafd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+}
+.ceres-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 40px 32px 32px 32px;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Reuse input/button styles for all forms */
+.ceres-label {
+  font-size: 0.98rem;
+  color: #003366;
+  font-weight: 500;
+}
+.ceres-input {
+  padding: 8px 8px;
+  border: 1.5px solid #dbe6ef;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f7fafd;
+  color: #222;
+  transition: border-color 0.2s;
+}
+.ceres-input:focus {
+  border-color: #009fe3;
+  outline: none;
+}
+.ceres-btn-primary {
+  background: #009fe3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 0;
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ceres-btn-primary:hover {
+  background: #007bb8;
+}
+.ceres-btn-secondary {
+  background: #f7fafd;
+  color: #003366;
+  border: 1.5px solid #dbe6ef;
+  border-radius: 6px;
+  padding: 12px 0;
+  font-size: 1.08rem;
+  font-weight: 500;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ceres-btn-secondary:hover {
+  background: #e6f2fa;
+}
+
+@media (max-width: 700px) {
+  .ceres-card {
+    padding: 24px 8px 18px 8px;
+    max-width: 98vw;
+  }
+}
+
+select.ceres-input {
+  padding: 8px 8px;
 } 

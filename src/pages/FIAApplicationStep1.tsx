@@ -19,6 +19,8 @@ const FIAApplicationStep1: React.FC = () => {
     zipCode: ''
   });
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -32,26 +34,27 @@ const FIAApplicationStep1: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validate required fields
-    const requiredFields = ['firstName', 'lastName', 'ssn', 'dateOfBirth', 'email', 'phone', 'address', 'city', 'state', 'zipCode'];
-    const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData]);
-    
-    if (missingFields.length > 0) {
-      logError('validation', 'Form submission failed - missing required fields', { missingFields }, sessionId);
-      alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
+    const skipRequired = localStorage.getItem('dev_skip_required') === 'true';
+    // SSN validation (always enforced, even in dev mode)
+    const ssnDigits = formData.ssn.replace(/[^0-9]/g, '');
+    if (ssnDigits.length > 0 && ssnDigits.length !== 9) {
+      setError('SSN must be nine digits');
       return;
     }
-    
-    // Save to localStorage for demo purposes
+    if (!skipRequired) {
+      const requiredFields = ['firstName', 'lastName', 'ssn', 'dateOfBirth', 'email', 'phone', 'address', 'city', 'state', 'zipCode'];
+      const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData]);
+      if (missingFields.length > 0) {
+        setError(`Please fill in all required fields: ${missingFields.join(', ')}`);
+        return;
+      }
+    }
+    setError(null);
     localStorage.setItem(`fia_app_${sessionId}_step1`, JSON.stringify(formData));
-    
-    // Log successful form submission
     logInfo('form', 'Step 1 form submitted successfully', { 
       hasData: true, 
       fieldsCompleted: Object.keys(formData).length 
     }, sessionId);
-    
     navigate(`/fia-application/${sessionId}/step/2`);
   };
 
@@ -78,294 +81,183 @@ const FIAApplicationStep1: React.FC = () => {
   }, [sessionId]);
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      minHeight: '100vh',
-      padding: '20px',
-      backgroundColor: '#f5f5f5'
-    }}>
-      <div style={{
-        backgroundColor: 'white',
-        padding: '40px',
-        borderRadius: '8px',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-        width: '100%',
-        maxWidth: '600px',
-        marginTop: '20px'
-      }}>
+    <div className="ceres-center-bg">
+      <div className="ceres-card">
         <div style={{ marginBottom: '30px' }}>
-          <h1 style={{ 
-            color: '#333',
-            marginBottom: '10px',
-            fontSize: '24px'
-          }}>
+          <h1 style={{ color: '#003366', marginBottom: '10px', fontSize: '24px', fontWeight: 700 }}>
             Step 1: Applicant Information
           </h1>
           <p style={{ color: '#666', fontSize: '14px' }}>
             Session ID: {sessionId}
           </p>
         </div>
-
+        {error && (
+          <div style={{
+            background: '#ffeaea',
+            color: '#b10000',
+            border: '1.5px solid #ffb3b3',
+            borderRadius: '7px',
+            padding: '12px 16px 12px 36px',
+            marginBottom: '18px',
+            position: 'relative',
+            fontWeight: 500,
+            fontSize: '1rem',
+            display: 'flex',
+            alignItems: 'center',
+          }}>
+            <span
+              onClick={() => setError(null)}
+              style={{
+                position: 'absolute',
+                left: 10,
+                top: 8,
+                fontWeight: 700,
+                fontSize: '1.1em',
+                cursor: 'pointer',
+                color: '#b10000',
+                userSelect: 'none',
+              }}
+              title="Dismiss error"
+            >
+              ×
+            </span>
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
             <div>
-              <label htmlFor="firstName" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-                First Name *
-              </label>
+              <label htmlFor="firstName" className="ceres-label">First Name *</label>
               <input
                 type="text"
                 id="firstName"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-                required
+                className="ceres-input"
               />
             </div>
             
             <div>
-              <label htmlFor="lastName" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-                Last Name *
-              </label>
+              <label htmlFor="lastName" className="ceres-label">Last Name *</label>
               <input
                 type="text"
                 id="lastName"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-                required
+                className="ceres-input"
               />
             </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
             <div>
-              <label htmlFor="ssn" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-                Social Security Number *
-              </label>
+              <label htmlFor="ssn" className="ceres-label">Social Security Number *</label>
               <input
                 type="text"
                 id="ssn"
                 name="ssn"
                 value={formData.ssn}
                 onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
+                className="ceres-input"
                 placeholder="XXX-XX-XXXX"
-                required
               />
             </div>
             
             <div>
-              <label htmlFor="dateOfBirth" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-                Date of Birth *
-              </label>
+              <label htmlFor="dateOfBirth" className="ceres-label">Date of Birth *</label>
               <input
                 type="date"
                 id="dateOfBirth"
                 name="dateOfBirth"
                 value={formData.dateOfBirth}
                 onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-                required
+                className="ceres-input"
               />
             </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
             <div>
-              <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-                Email Address *
-              </label>
+              <label htmlFor="email" className="ceres-label">Email Address *</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-                required
+                className="ceres-input"
               />
             </div>
             
             <div>
-              <label htmlFor="phone" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-                Phone Number *
-              </label>
+              <label htmlFor="phone" className="ceres-label">Phone Number *</label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-                required
+                className="ceres-input"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="address" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-              Street Address *
-            </label>
+            <label htmlFor="address" className="ceres-label">Street Address *</label>
             <input
               type="text"
               id="address"
               name="address"
               value={formData.address}
               onChange={handleInputChange}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                fontSize: '16px'
-              }}
-              required
+              className="ceres-input"
             />
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px' }}>
             <div>
-              <label htmlFor="city" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-                City *
-              </label>
+              <label htmlFor="city" className="ceres-label">City *</label>
               <input
                 type="text"
                 id="city"
                 name="city"
                 value={formData.city}
                 onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-                required
+                className="ceres-input"
               />
             </div>
             
             <div>
-              <label htmlFor="state" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-                State *
-              </label>
+              <label htmlFor="state" className="ceres-label">State *</label>
               <input
                 type="text"
                 id="state"
                 name="state"
                 value={formData.state}
                 onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-                placeholder="CA"
-                required
+                className="ceres-input"
               />
             </div>
             
             <div>
-              <label htmlFor="zipCode" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-                ZIP Code *
-              </label>
+              <label htmlFor="zipCode" className="ceres-label">ZIP Code *</label>
               <input
                 type="text"
                 id="zipCode"
                 name="zipCode"
                 value={formData.zipCode}
                 onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-                required
+                className="ceres-input"
               />
             </div>
           </div>
 
-          <div style={{ 
-            display: 'flex', 
-            gap: '15px', 
-            marginTop: '20px',
-            justifyContent: 'space-between'
-          }}>
-            <button
-              type="button"
-              onClick={handleBack}
-              style={{
-                backgroundColor: 'transparent',
-                color: '#666',
-                padding: '12px 24px',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                fontSize: '16px',
-                cursor: 'pointer'
-              }}
-            >
-              Back
-            </button>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+            <button type="button" className="ceres-btn-secondary" onClick={handleBack}>Back</button>
             
-            <button
-              type="submit"
-              style={{
-                backgroundColor: '#007bff',
-                color: 'white',
-                padding: '12px 24px',
-                border: 'none',
-                borderRadius: '4px',
-                fontSize: '16px',
-                cursor: 'pointer'
-              }}
-            >
-              Continue to Step 2
-            </button>
+            <button type="submit" className="ceres-btn-primary">Continue to Step 2</button>
           </div>
         </form>
       </div>

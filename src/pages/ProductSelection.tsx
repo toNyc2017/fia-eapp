@@ -45,7 +45,14 @@ const ProductSelection: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Save to localStorage
+    const skipRequired = localStorage.getItem('dev_skip_required') === 'true';
+    if (!skipRequired) {
+      // Save to localStorage
+      if (!formData.product || !formData.term || !formData.ownershipType || !formData.planType || !formData.accountDesignation) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+    }
     localStorage.setItem(`fia_app_${sessionId}_product_selection`, JSON.stringify(formData));
     logInfo('form', 'Product selection submitted', { ...formData }, sessionId);
     navigate(`/fia-application/${sessionId}/owner-info`);
@@ -66,7 +73,7 @@ const ProductSelection: React.FC = () => {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '20px' }}>
           <div>
             <label htmlFor="product" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Product *</label>
-            <select name="product" id="product" value={formData.product} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
+            <select name="product" id="product" value={formData.product} onChange={handleChange} style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
               <option value="">Select a product</option>
               {getOptions('PRODUCT:PRODUCT').map(opt => (
                 <option key={opt.code} value={opt.code}>{opt.label}</option>
@@ -75,7 +82,7 @@ const ProductSelection: React.FC = () => {
           </div>
           <div>
             <label htmlFor="term" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Term *</label>
-            <select name="term" id="term" value={formData.term} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
+            <select name="term" id="term" value={formData.term} onChange={handleChange} style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
               <option value="">Select a term</option>
               {getOptions('PRODUCT:TERM_SELECTION').map(opt => (
                 <option key={opt.code} value={opt.code}>{opt.label}</option>
@@ -84,7 +91,7 @@ const ProductSelection: React.FC = () => {
           </div>
           <div>
             <label htmlFor="ownershipType" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Ownership Type *</label>
-            <select name="ownershipType" id="ownershipType" value={formData.ownershipType} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
+            <select name="ownershipType" id="ownershipType" value={formData.ownershipType} onChange={handleChange} style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
               <option value="">Select ownership type</option>
               {getOptions('PRODUCT:TYPE_OWNERSHIP').map(opt => (
                 <option key={opt.code} value={opt.code}>{opt.label}</option>
@@ -93,7 +100,7 @@ const ProductSelection: React.FC = () => {
           </div>
           <div>
             <label htmlFor="planType" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Plan Type *</label>
-            <select name="planType" id="planType" value={formData.planType} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
+            <select name="planType" id="planType" value={formData.planType} onChange={handleChange} style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
               <option value="">Select plan type</option>
               {getOptions('PRODUCT:PLAN_TYPE').map(opt => (
                 <option key={opt.code} value={opt.code}>{opt.label}</option>
@@ -102,7 +109,7 @@ const ProductSelection: React.FC = () => {
           </div>
           <div>
             <label htmlFor="accountDesignation" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Account Designation *</label>
-            <select name="accountDesignation" id="accountDesignation" value={formData.accountDesignation} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
+            <select name="accountDesignation" id="accountDesignation" value={formData.accountDesignation} onChange={handleChange} style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}>
               <option value="">Select account designation</option>
               {getOptions('PRODUCT:ACCOUNT_DESIGNATION').map(opt => (
                 <option key={opt.code} value={opt.code}>{opt.label}</option>

@@ -21,6 +21,8 @@ const DROPDOWN_FIELDS = [
   'JOINT_OWNER:GOVERMENT_ID_EIN_TIN_TYPE',
 ];
 
+const requiredFields = jointOwnerFields.map((field: Field) => field.code);
+
 const JointOwnerInfo: React.FC = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
   const navigate = useNavigate();
@@ -46,6 +48,15 @@ const JointOwnerInfo: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const skipRequired = localStorage.getItem('dev_skip_required') === 'true';
+    if (!skipRequired) {
+      // Validate required fields
+      const missingFields = requiredFields.filter(field => !formData[field]);
+      if (missingFields.length > 0) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+    }
     localStorage.setItem(`fia_app_${sessionId}_joint_owner_info`, JSON.stringify(formData));
     logInfo('form', 'Joint owner info submitted', { ...formData }, sessionId);
     navigate(`/fia-application/${sessionId}/beneficiary-info`); // or next logical step

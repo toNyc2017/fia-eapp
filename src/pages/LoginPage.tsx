@@ -5,6 +5,7 @@ import { logInfo, logError } from '../utils/logger';
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [agentName, setAgentName] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -14,9 +15,10 @@ const LoginPage: React.FC = () => {
       // Store a mock session ID
       const sessionId = `session_${Date.now()}`;
       localStorage.setItem('sessionId', sessionId);
+      localStorage.setItem('agentName', agentName);
       
       // Log successful login
-      logInfo('auth', 'User login successful', { email, sessionId }, sessionId);
+      logInfo('auth', 'User login successful', { agentName, email, sessionId }, sessionId);
       
       navigate('/launcher');
     } else {
@@ -32,100 +34,49 @@ const LoginPage: React.FC = () => {
   }, []);
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100vh',
-      padding: '20px',
-      backgroundColor: '#f5f5f5'
-    }}>
-      <div style={{
-        backgroundColor: 'white',
-        padding: '40px',
-        borderRadius: '8px',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-        width: '100%',
-        maxWidth: '400px'
-      }}>
-        <h1 style={{ 
-          textAlign: 'center', 
-          color: '#333',
-          marginBottom: '30px',
-          fontSize: '24px'
-        }}>
-          FIA eApp Login
-        </h1>
-        
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <div>
-            <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-              Email
-            </label>
+    <div className="ceres-center-bg">
+      <div className="ceres-login-card">
+        <div className="ceres-logo-placeholder">ceres<span style={{color:'#009fe3'}}>life</span></div>
+        <h1 className="ceres-login-title">Sign in to your account</h1>
+        <form onSubmit={handleSubmit} className="ceres-login-form">
+          <div className="ceres-form-group">
+            <label htmlFor="agentName" className="ceres-label">Agent Name</label>
+            <input
+              type="text"
+              id="agentName"
+              value={agentName}
+              onChange={(e) => setAgentName(e.target.value)}
+              className="ceres-input"
+              placeholder="Enter your name (optional)"
+            />
+          </div>
+          <div className="ceres-form-group">
+            <label htmlFor="email" className="ceres-label">Email</label>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                fontSize: '16px'
-              }}
+              className="ceres-input"
               placeholder="Enter your email"
               required
             />
           </div>
-          
-          <div>
-            <label htmlFor="password" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>
-              Password
-            </label>
+          <div className="ceres-form-group">
+            <label htmlFor="password" className="ceres-label">Password</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                fontSize: '16px'
-              }}
+              className="ceres-input"
               placeholder="Enter your password"
               required
             />
           </div>
-          
-          <button
-            type="submit"
-            style={{
-              backgroundColor: '#007bff',
-              color: 'white',
-              padding: '12px',
-              border: 'none',
-              borderRadius: '4px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              marginTop: '10px'
-            }}
-          >
-            Sign In
-          </button>
+          <button type="submit" className="ceres-login-btn">Sign In</button>
         </form>
-        
-        <p style={{ 
-          textAlign: 'center', 
-          marginTop: '20px', 
-          color: '#666',
-          fontSize: '14px'
-        }}>
-          Demo: Enter any email and password to continue
-        </p>
+        <p className="ceres-login-demo">Demo: Enter any email and password to continue</p>
       </div>
     </div>
   );

@@ -17,6 +17,11 @@ const JointOwnerQuestion: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const skipRequired = localStorage.getItem('dev_skip_required') === 'true';
+    if (!skipRequired && hasJointOwner === '') {
+      alert('Please select Yes or No.');
+      return;
+    }
     localStorage.setItem(`fia_app_${sessionId}_joint_owner_question`, hasJointOwner);
     logInfo('form', 'Joint owner question answered', { hasJointOwner }, sessionId);
     if (hasJointOwner === 'yes') {
