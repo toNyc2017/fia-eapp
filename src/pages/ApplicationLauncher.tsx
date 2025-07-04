@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logInfo, logWarn } from '../utils/logger';
 import LogExporter from '../components/LogExporter';
+import { ApplicationService } from '../utils/applicationService';
 
 const ApplicationLauncher: React.FC = () => {
   const navigate = useNavigate();
   const sessionId = localStorage.getItem('sessionId');
   const [showLogExporter, setShowLogExporter] = useState(false);
+  const [applications, setApplications] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const agentEmail = localStorage.getItem('agentEmail') || 'demo@cereslife.com';
 
   const handleStartNew = () => {
     // Generate a new session ID for the new application
@@ -35,10 +39,43 @@ const ApplicationLauncher: React.FC = () => {
     navigate('/');
   };
 
+  // Load existing applications
+  useEffect(() => {
+    const loadApplications = async () => {
+      setLoading(true);
+      const result = await ApplicationService.getApplicationsByAgent(agentEmail);
+      if (result.success && result.data) {
+        setApplications(result.data);
+        logInfo('navigation', 'Applications loaded', { count: result.data.length }, sessionId || undefined);
+      } else {
+        logWarn('navigation', 'Failed to load applications', { error: result.error }, sessionId || undefined);
+      }
+      setLoading(false);
+    };
+
+    loadApplications();
+  }, [agentEmail, sessionId]);
+
   // Log page visit
   React.useEffect(() => {
     logInfo('navigation', 'Application launcher visited', { sessionId }, sessionId || undefined);
   }, [sessionId]);
+
+  const handleResumeApplication = (sessionId: string) => {
+    localStorage.setItem('sessionId', sessionId);
+    logInfo('navigation', 'Resuming specific application', { sessionId }, sessionId);
+    navigate(`/fia-application/${sessionId}/step/1`);
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
 
   return (
     <div style={{
@@ -56,7 +93,7 @@ const ApplicationLauncher: React.FC = () => {
         borderRadius: '8px',
         boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
         width: '100%',
-        maxWidth: '500px',
+        maxWidth: '800px',
         textAlign: 'center',
         marginBottom: '20px'
       }}>
@@ -108,6 +145,66 @@ const ApplicationLauncher: React.FC = () => {
           >
             Resume Previous Application
           </button>
+        </div>
+
+        {/* Existing Applications Section */}
+        <div style={{ marginBottom: '30px', textAlign: 'left' }}>
+          <h2 style={{ color: '#333', fontSize: '18px', marginBottom: '15px', textAlign: 'center' }}>Existing Applications</h2>
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '20px', color: '#666' }}>Loading applications...</div>
+          ) : applications.length > 0 ? (
+            <div style={{ maxHeight: '400px', overflowY: 'auto', border: '1px solid #e3e8ee', borderRadius: '6px' }}>
+              {applications.map((app, index) => (
+                <div key={app.id} style={{ 
+                  padding: '15px', 
+                  borderBottom: index < applications.length - 1 ? '1px solid #e3e8ee' : 'none',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  backgroundColor: app.session_id === sessionId ? '#f0f8ff' : 'white'
+                }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 600, color: '#333', marginBottom: '5px' }}>
+                      {app.applicant_first_name && app.applicant_last_name 
+                        ? `${app.applicant_first_name} ${app.applicant_last_name}`
+                        : `Application ${app.session_id.slice(-8)}`
+                      }
+                    </div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '3px' }}>
+                      Status: <span style={{ 
+                        color: app.status === 'draft' ? '#ffa500' : 
+                               app.status === 'submitted' ? '#28a745' : '#666',
+                        fontWeight: 500
+                      }}>{app.status}</span>
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#999' }}>
+                      Created: {formatDate(app.created_at)}
+                      {app.updated_at !== app.created_at && ` • Updated: ${formatDate(app.updated_at)}`}
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => handleResumeApplication(app.session_id)}
+                    style={{ 
+                      backgroundColor: '#009fe3', 
+                      color: 'white', 
+                      padding: '8px 16px', 
+                      border: 'none', 
+                      borderRadius: '4px', 
+                      fontSize: '14px', 
+                      cursor: 'pointer',
+                      marginLeft: '15px'
+                    }}
+                  >
+                    {app.session_id === sessionId ? 'Continue' : 'Resume'}
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '20px', color: '#666', backgroundColor: '#f7fafd', borderRadius: '6px' }}>
+              No applications found. Start a new application to get started!
+            </div>
+          )}
         </div>
 
         <div style={{ 

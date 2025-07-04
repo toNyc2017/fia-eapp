@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { logInfo, logError } from '../utils/logger';
+import { ApplicationService } from '../utils/applicationService';
 
 const FIAApplicationStep1: React.FC = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
@@ -32,7 +33,7 @@ const FIAApplicationStep1: React.FC = () => {
     logInfo('form', `Field changed: ${name}`, { field: name, value: value.substring(0, 3) + '***' }, sessionId);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const skipRequired = localStorage.getItem('dev_skip_required') === 'true';
     // SSN validation (always enforced, even in dev mode)
@@ -50,10 +51,46 @@ const FIAApplicationStep1: React.FC = () => {
       }
     }
     setError(null);
+    
+    // Save to localStorage (for backward compatibility)
     localStorage.setItem(`fia_app_${sessionId}_step1`, JSON.stringify(formData));
+    
+    // Save to Supabase
+    const agentName = localStorage.getItem('agentName') || 'Demo Agent';
+    const agentEmail = localStorage.getItem('agentEmail') || 'demo@cereslife.com';
+    
+    if (!sessionId) {
+      setError('Session ID is missing');
+      return;
+    }
+    
+    const applicationData = {
+      session_id: sessionId,
+      agent_name: agentName,
+      agent_email: agentEmail,
+      applicant_first_name: formData.firstName,
+      applicant_last_name: formData.lastName,
+      applicant_email: formData.email,
+      applicant_phone: formData.phone,
+      applicant_date_of_birth: formData.dateOfBirth,
+      applicant_ssn: formData.ssn,
+      applicant_address: formData.address,
+      applicant_city: formData.city,
+      applicant_state: formData.state,
+      applicant_zip: formData.zipCode,
+      status: 'draft'
+    };
+    
+    const result = await ApplicationService.saveApplication(applicationData);
+    if (!result.success) {
+      setError(`Failed to save application: ${result.error}`);
+      return;
+    }
+    
     logInfo('form', 'Step 1 form submitted successfully', { 
       hasData: true, 
-      fieldsCompleted: Object.keys(formData).length 
+      fieldsCompleted: Object.keys(formData).length,
+      supabaseId: result.id
     }, sessionId);
     navigate(`/fia-application/${sessionId}/step/2`);
   };

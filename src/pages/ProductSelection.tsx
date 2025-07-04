@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import productOptions from '../utils/productOptions.json';
 import { logInfo, logError } from '../utils/logger';
+import { ApplicationService } from '../utils/applicationService';
 
 interface ProductOption {
   code: string;
@@ -43,18 +44,47 @@ const ProductSelection: React.FC = () => {
     logInfo('form', `Product selection field changed: ${name}`, { value }, sessionId);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const skipRequired = localStorage.getItem('dev_skip_required') === 'true';
     if (!skipRequired) {
-      // Save to localStorage
       if (!formData.product || !formData.term || !formData.ownershipType || !formData.planType || !formData.accountDesignation) {
         alert('Please fill in all required fields.');
         return;
       }
     }
+    
+    if (!sessionId) {
+      alert('Session ID is missing');
+      return;
+    }
+    
+    // Save to localStorage (for backward compatibility)
     localStorage.setItem(`fia_app_${sessionId}_product_selection`, JSON.stringify(formData));
-    logInfo('form', 'Product selection submitted', { ...formData }, sessionId);
+    
+    // Save to Supabase
+    const agentName = localStorage.getItem('agentName') || 'Demo Agent';
+    const agentEmail = localStorage.getItem('agentEmail') || 'demo@cereslife.com';
+    
+    const applicationData = {
+      session_id: sessionId,
+      agent_name: agentName,
+      agent_email: agentEmail,
+      product_id: formData.product,
+      product_name: formData.product,
+      ownership_type: formData.ownershipType,
+      plan_type: formData.planType,
+      account_designation: formData.accountDesignation,
+      status: 'draft'
+    };
+    
+    const result = await ApplicationService.saveApplication(applicationData);
+    if (!result.success) {
+      alert(`Failed to save application: ${result.error}`);
+      return;
+    }
+    
+    logInfo('form', 'Product selection submitted', { ...formData, supabaseId: result.id }, sessionId);
     navigate(`/fia-application/${sessionId}/owner-info`);
   };
 

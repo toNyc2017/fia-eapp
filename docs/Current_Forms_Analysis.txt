@@ -1,0 +1,133 @@
+# Current Forms Analysis - For Simplification Review
+
+## FORM 1: Login Page
+**Fields:** 3
+- Agent Name (optional)
+- Email (required)
+- Password (required)
+
+## FORM 2: Step 1 - Applicant Info (FIAApplicationStep1.tsx)
+**Fields:** 10 (all required unless Dev Mode)
+- First Name
+- Last Name
+- Social Security Number
+- Date of Birth
+- Email Address
+- Phone Number
+- Street Address
+- City
+- State
+- ZIP Code
+
+## FORM 3: Step 2 - Product Selection (ProductSelection.tsx)
+**Fields:** 5 (all required unless Dev Mode)
+- Product (dropdown)
+- Term (dropdown)
+- Ownership Type (dropdown)
+- Plan Type (dropdown)
+- Account Designation (dropdown)
+
+## FORM 4: Owner Info (OwnerInfo.tsx)
+**Fields:** 50+ (from owner_fields.json)
+
+### Basic Personal Info:
+- Is US Citizen
+- Date of Birth
+- Gender (Male/Female)
+- Prefix, First Name, Middle Name, Last Name, Suffix
+- Marital Status (Married/Single/Divorced/Separated/Widowed)
+
+### Government ID:
+- Government ID SSN Type
+- Government ID EIN/TIN Type
+- Government ID Value
+
+### Address Info:
+- Address, City, State, ZIP
+- Mailing Same As Address
+- Mailing Address, Mailing City, Mailing State, Mailing ZIP
+
+### Contact Info:
+- Phone
+- Email
+
+### Legal/Statements:
+- Agent Recommendation
+- Limited Info
+- Refuse
+- Owner Dated At City/State/Date
+- Owner Signature
+- Owner Printed Name
+- Acknowledgement fields (duplicate of above)
+
+### Relationships:
+- Annuitant Relationship to Owner
+- Joint Annuitant Relationship to Owner
+
+### Trust/Entity:
+- Trust Entity Name
+
+## FORM 5: Joint Owner Question (JointOwnerQuestion.tsx)
+**Fields:** 1
+- Has Joint Owner? (Yes/No radio buttons)
+
+## FORM 6: Joint Owner Info (JointOwnerInfo.tsx)
+**Fields:** 40+ (from joint_owner_fields.json)
+
+### Basic Personal Info:
+- Is US Citizen
+- Relationship to Owner
+- Date of Birth
+- Gender (Male/Female)
+- Prefix, First Name, Middle Name, Last Name, Suffix
+- Marital Status (Married/Single/Divorced/Separated/Widowed)
+
+### Government ID:
+- Government ID SSN Type
+- Government ID EIN/TIN Type
+- Government ID Value
+
+### Address Info:
+- Address, City, State, ZIP
+- Mailing Same As Address
+- Mailing Address, Mailing City, Mailing State, Mailing ZIP
+
+### Contact Info:
+- Phone
+- Email
+
+### Legal/Statements:
+- Joint Owner Dated At City/State/Date
+- Joint Owner Signature
+- Joint Owner Printed Name
+- Acknowledgement fields (duplicate of above)
+
+## SUMMARY BY CATEGORY
+
+### Essential Fields (Likely to Keep):
+- Basic personal info (name, DOB, SSN, contact)
+- Address information
+- Product selection
+- Basic owner info
+
+### Fields to Consider Removing/Simplifying:
+- Mailing address (if same as primary)
+- Multiple marital status options (simplify to dropdown)
+- Duplicate legal/statement fields
+- Trust/entity fields (if not needed for demo)
+- Middle name, suffix (optional)
+- Complex relationship fields
+- Multiple government ID types
+
+### Total Current Field Count: ~100+ fields
+
+## RECOMMENDATIONS FOR SIMPLIFICATION:
+1. **Reduce Owner Info from 50+ to ~15-20 essential fields**
+2. **Reduce Joint Owner Info from 40+ to ~15-20 essential fields**
+3. **Simplify address handling (primary only, or checkbox for mailing same)**
+4. **Consolidate legal/statement fields**
+5. **Remove duplicate fields between owner and joint owner**
+6. **Focus on demo-appropriate data collection**
+
+---
+*Use this analysis to decide which fields to keep, remove, or modify.* 

@@ -1,0 +1,89 @@
+[
+  {
+    "id": "first_name",
+    "label": "First Name",
+    "type": "text",
+    "required": true,
+    "validation": ["required"]
+  },
+  {
+    "id": "last_name",
+    "label": "Last Name",
+    "type": "text",
+    "required": true,
+    "validation": ["required"]
+  },
+  {
+    "id": "date_of_birth",
+    "label": "Date of Birth",
+    "type": "date",
+    "required": true,
+    "validation": ["required"]
+  },
+  {
+    "id": "ssn",
+    "label": "Social Security Number",
+    "type": "text",
+    "required": true,
+    "validation": ["required", "ssn"],
+    "placeholder": "XXX-XX-XXXX"
+  },
+  {
+    "id": "email",
+    "label": "Email Address",
+    "type": "email",
+    "required": true,
+    "validation": ["required", "email"]
+  },
+  {
+    "id": "phone",
+    "label": "Phone Number",
+    "type": "tel",
+    "required": true,
+    "validation": ["required"]
+  },
+  {
+    "id": "address",
+    "label": "Street Address",
+    "type": "text",
+    "required": true,
+    "validation": ["required"]
+  },
+  {
+    "id": "city",
+    "label": "City",
+    "type": "text",
+    "required": true,
+    "validation": ["required"]
+  },
+  {
+    "id": "state",
+    "label": "State",
+    "type": "text",
+    "required": true,
+    "validation": ["required"]
+  },
+  {
+    "id": "zip",
+    "label": "ZIP Code",
+    "type": "text",
+    "required": true,
+    "validation": ["required"]
+  },
+  {
+    "id": "relationship_to_owner",
+    "label": "Relationship to Owner",
+    "type": "select",
+    "required": true,
+    "validation": ["required"],
+    "options": ["Spouse", "Child", "Parent", "Sibling", "Other"]
+  },
+  {
+    "id": "us_citizen",
+    "label": "US Citizen",
+    "type": "radio",
+    "required": true,
+    "validation": ["required"],
+    "options": ["Yes", "No"]
+  }
+] 

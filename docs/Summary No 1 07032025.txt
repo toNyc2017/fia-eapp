@@ -1,0 +1,46 @@
+Here’s a concise summary of your project and progress so far, ready for you to use as context in a new thread:
+
+Thisis the first summary geenrated by Cursor to updated subsequent thread with what we’e been doing this project.  Want to start a new thread to enable quicker responses etc
+
+
+---
+
+## **Ceres FIA eApp Project – Progress & Context Summary**
+
+### **Project Overview**
+- **Goal:** Build a modern, demoable Fixed Indexed Annuity (FIA) electronic application (eApp) for Ceres Life.
+- **Tech Stack:** React, TypeScript, Vite, React Router, Supabase (moving from localStorage to cloud DB), CSS-in-JS and custom styles.
+
+### **Features Implemented**
+- **Login Page:** With agent name, email, and password fields; session management; Dev Mode toggle.
+- **Application Launcher:** Start/resume applications by session.
+- **Multi-step Form Flow:** Applicant Info, Product Selection, Owner Info, Joint Owner, etc.
+- **Dynamic Forms:** Fields loaded from JSON for Owner/Joint Owner.
+- **Product Selection:** Options from JSON.
+- **Logging:** User actions, navigation, and errors tracked; exportable logs.
+- **Dev Mode:** Toggle to skip required field validation for fast UI testing.
+- **Styling:** Modern, clean, Ceres-branded look and feel; responsive design.
+- **Sidebar Navigation:** Persistent left nav bar (except on Login/Launcher), highlights current step, allows jumping to any section.
+
+### **Current State**
+- All main UI flows and navigation are working.
+- Dev Mode and validation logic are robust.
+- LocalStorage is used for data persistence (for now).
+- Supabase CLI is installed and ready for cloud integration.
+
+### **Next Steps**
+- **Supabase Integration:**
+  1. Log in to Supabase CLI and link local project to cloud project.
+  2. Define and migrate schema for eApp data (using CLI migrations).
+  3. Update React app to save/load data from Supabase instead of localStorage.
+- **(Optional) Further UI/UX refinements, more form steps, or advanced features.**
+
+### **Key Decisions**
+- Using Supabase Cloud for easy local/cloud dev and future scalability.
+- All schema and migrations will be managed programmatically via Supabase CLI.
+- Project is ready for collaborative, version-controlled development.
+
+---
+
+**You can use this summary as the first message in a new thread to continue with Supabase schema setup or any other next step!**  
+Just let me know what you want to do next, and I’ll guide you through it.

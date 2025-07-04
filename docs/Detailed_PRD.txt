@@ -1,0 +1,108 @@
+# Ceres FIA eApp - Detailed Product Requirements Document
+
+## Project Overview
+- **Goal:** Build a modern, demoable Fixed Indexed Annuity (FIA) electronic application (eApp) for Ceres Life
+- **Tech Stack:** React, TypeScript, Vite, React Router, Supabase
+- **Status:** In Development - Form Simplification Phase
+
+## Core Requirements (Updated 2025-07-03)
+
+### 1. Form Simplification Requirements
+- Reduce current form fields to essential information only
+- Maintain clean, user-friendly interface
+- Focus on demo-appropriate data collection
+
+### 2. Database & Data Management Requirements
+- Store form data in Supabase cloud database
+- Support partial form saves (auto-save on each step)
+- Enable resume functionality for incomplete applications
+- Provide application list/launcher for existing apps
+- Unique identifier for each eApp (UUID)
+
+### 3. User Experience Requirements
+- Multi-step form flow with progress indication
+- Sidebar navigation between steps
+- Dev Mode for testing (skip validation)
+- Session management
+- Logging of user actions
+
+### 4. Technical Requirements
+- Modern, responsive UI with Ceres branding
+- TypeScript for type safety
+- Environment-based configuration
+- Error handling and validation
+
+## Current Status
+- ✅ Basic UI/UX implemented
+- ✅ Multi-step navigation working
+- ✅ Dev Mode implemented
+- ✅ Supabase project created and linked
+- ✅ Form simplification completed (Phase 1)
+- ✅ Dynamic form component created
+- ✅ Simplified Owner Info (15 fields) implemented
+- ✅ Simplified Joint Owner Info (12 fields) implemented
+- ✅ Database schema designed with JSONB approach
+- ✅ Database migration completed
+- ✅ Supabase integration implemented
+- ✅ Save/resume functionality implemented
+- ✅ ApplicationService created for database operations
+
+## Current Form Analysis (2025-07-03)
+
+### Form Flow:
+1. **Login Page** - Agent name, email, password
+2. **Application Launcher** - Start/resume applications
+3. **Step 1: Applicant Info** - Basic personal information
+4. **Step 2: Product Selection** - Product, term, ownership type, plan type, account designation
+5. **Owner Info** - Comprehensive owner information (50+ fields)
+6. **Joint Owner Question** - Yes/No for joint owner
+7. **Joint Owner Info** - Comprehensive joint owner information (40+ fields)
+
+### Current Field Count by Form:
+- **Step 1 (Applicant Info):** 10 fields (basic personal info)
+- **Step 2 (Product Selection):** 5 fields (product choices)
+- **Owner Info:** 50+ fields (comprehensive owner details)
+- **Joint Owner Info:** 40+ fields (comprehensive joint owner details)
+
+### Field Categories Identified:
+1. **Basic Personal Info** (Name, DOB, SSN, Contact)
+2. **Address Information** (Primary + Mailing addresses)
+3. **Demographic Info** (Gender, Marital Status, Citizenship)
+4. **Government ID** (SSN, EIN/TIN)
+5. **Product Selection** (Product, Term, Ownership, Plan Type)
+6. **Legal/Statement Fields** (Signatures, Acknowledgements, Statements)
+7. **Relationship Fields** (Owner relationships, Annuitant info)
+
+## Decisions Made
+- Using Supabase Cloud for database
+- UUID-based application identification
+- JSONB fields for flexible owner/joint owner data
+- Auto-save on form step completion
+- Application launcher for existing apps
+
+## Form Simplification Plan (2025-07-03)
+
+### Simplified Owner Info Form (15 fields):
+- **Basic Personal:** First Name, Last Name, DOB, SSN, Email, Phone
+- **Address:** Street, City, State, ZIP, Mailing Same as Primary (checkbox)
+- **Demographic:** Gender (dropdown), Marital Status (dropdown)
+- **Additional:** US Citizen (radio), Occupation (text)
+
+### Simplified Joint Owner Info Form (12 fields):
+- **Basic Personal:** First Name, Last Name, DOB, SSN, Email, Phone
+- **Address:** Street, City, State, ZIP
+- **Additional:** Relationship to Owner (dropdown), US Citizen (radio)
+
+### Flexible Architecture Strategy:
+- **Database:** JSONB fields for owner_info and joint_owner_info
+- **Frontend:** Dynamic form configuration via JSON
+- **Version Control:** Form versioning for future changes
+- **Migration:** Additive changes via JSONB, structural changes via migrations
+
+### Implementation Phases:
+1. **Phase 1:** Simplified static forms with JSONB storage
+2. **Phase 2:** Dynamic form renderer with configuration system
+3. **Phase 3:** Advanced features (form builder, A/B testing)
+
+---
+*This document will be updated as requirements evolve during development.* 
