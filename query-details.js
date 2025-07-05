@@ -79,6 +79,12 @@ async function queryDetailedData() {
             }
           });
         }
+
+        // Suitability Data (JSONB)
+        if (app.suitability_data && Object.keys(app.suitability_data).length > 0) {
+          console.log('\n--- SUITABILITY QUESTIONNAIRE ---');
+          console.log(JSON.stringify(app.suitability_data, null, 2));
+        }
         
         console.log('\n' + '='.repeat(50) + '\n');
       });
