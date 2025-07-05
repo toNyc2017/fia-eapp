@@ -6,16 +6,16 @@ export interface ApplicationData {
   agent_name: string;
   agent_email: string;
   status?: string;
-  applicant_first_name?: string;
-  applicant_last_name?: string;
-  applicant_email?: string;
-  applicant_phone?: string;
-  applicant_date_of_birth?: string;
-  applicant_ssn?: string;
-  applicant_address?: string;
-  applicant_city?: string;
-  applicant_state?: string;
-  applicant_zip?: string;
+  applicant_first_name?: string | null;
+  applicant_last_name?: string | null;
+  applicant_email?: string | null;
+  applicant_phone?: string | null;
+  applicant_date_of_birth?: string | null;
+  applicant_ssn?: string | null;
+  applicant_address?: string | null;
+  applicant_city?: string | null;
+  applicant_state?: string | null;
+  applicant_zip?: string | null;
   product_id?: string;
   product_name?: string;
   premium_amount?: number;
@@ -25,6 +25,7 @@ export interface ApplicationData {
   account_designation?: string;
   owner_info?: Record<string, any>;
   joint_owner_info?: Record<string, any>;
+  suitability_data?: Record<string, any>;
   form_version?: string;
 }
 

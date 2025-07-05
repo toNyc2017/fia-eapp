@@ -27,7 +27,7 @@ const JointOwnerQuestion: React.FC = () => {
     if (hasJointOwner === 'yes') {
       navigate(`/fia-application/${sessionId}/joint-owner-info`);
     } else {
-      navigate(`/fia-application/${sessionId}/beneficiary-info`); // or next logical step
+      navigate(`/fia-application/${sessionId}/suitability`); // Navigate to suitability questionnaire
     }
   };
 

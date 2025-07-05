@@ -54,7 +54,7 @@ const SimplifiedJointOwnerInfo: React.FC = () => {
     }
     
     logInfo('form', 'Joint owner info submitted', { ...data, supabaseId: result.id }, sessionId);
-    navigate(`/fia-application/${sessionId}/beneficiary-info`); // or next logical step
+    navigate(`/fia-application/${sessionId}/suitability`); // Navigate to suitability questionnaire
   };
 
   const handleBack = () => {

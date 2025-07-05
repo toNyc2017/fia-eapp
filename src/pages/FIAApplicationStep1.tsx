@@ -36,17 +36,23 @@ const FIAApplicationStep1: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const skipRequired = localStorage.getItem('dev_skip_required') === 'true';
-    // SSN validation (always enforced, even in dev mode)
-    const ssnDigits = formData.ssn.replace(/[^0-9]/g, '');
-    if (ssnDigits.length > 0 && ssnDigits.length !== 9) {
-      setError('SSN must be nine digits');
-      return;
-    }
     if (!skipRequired) {
+      // SSN validation (only if not in dev mode)
+      const ssnDigits = formData.ssn.replace(/[^0-9]/g, '');
+      if (ssnDigits.length > 0 && ssnDigits.length !== 9) {
+        setError('SSN must be nine digits');
+        return;
+      }
+      // Required fields
       const requiredFields = ['firstName', 'lastName', 'ssn', 'dateOfBirth', 'email', 'phone', 'address', 'city', 'state', 'zipCode'];
       const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData]);
       if (missingFields.length > 0) {
         setError(`Please fill in all required fields: ${missingFields.join(', ')}`);
+        return;
+      }
+      // Date validation (only if not in dev mode)
+      if (formData.dateOfBirth && isNaN(Date.parse(formData.dateOfBirth))) {
+        setError('Date of Birth must be a valid date');
         return;
       }
     }
@@ -63,21 +69,24 @@ const FIAApplicationStep1: React.FC = () => {
       setError('Session ID is missing');
       return;
     }
+
+    // If dev mode, send null for any empty required field
+    const safe = (val: string) => (skipRequired && !val ? null : val);
     
     const applicationData = {
       session_id: sessionId,
       agent_name: agentName,
       agent_email: agentEmail,
-      applicant_first_name: formData.firstName,
-      applicant_last_name: formData.lastName,
-      applicant_email: formData.email,
-      applicant_phone: formData.phone,
-      applicant_date_of_birth: formData.dateOfBirth,
-      applicant_ssn: formData.ssn,
-      applicant_address: formData.address,
-      applicant_city: formData.city,
-      applicant_state: formData.state,
-      applicant_zip: formData.zipCode,
+      applicant_first_name: safe(formData.firstName),
+      applicant_last_name: safe(formData.lastName),
+      applicant_email: safe(formData.email),
+      applicant_phone: safe(formData.phone),
+      applicant_date_of_birth: safe(formData.dateOfBirth),
+      applicant_ssn: safe(formData.ssn),
+      applicant_address: safe(formData.address),
+      applicant_city: safe(formData.city),
+      applicant_state: safe(formData.state),
+      applicant_zip: safe(formData.zipCode),
       status: 'draft'
     };
     
@@ -198,7 +207,6 @@ const FIAApplicationStep1: React.FC = () => {
                 value={formData.ssn}
                 onChange={handleInputChange}
                 className="ceres-input"
-                placeholder="XXX-XX-XXXX"
               />
             </div>
             
@@ -231,7 +239,7 @@ const FIAApplicationStep1: React.FC = () => {
             <div>
               <label htmlFor="phone" className="ceres-label">Phone Number *</label>
               <input
-                type="tel"
+                type="text"
                 id="phone"
                 name="phone"
                 value={formData.phone}
@@ -265,7 +273,6 @@ const FIAApplicationStep1: React.FC = () => {
                 className="ceres-input"
               />
             </div>
-            
             <div>
               <label htmlFor="state" className="ceres-label">State *</label>
               <input
@@ -277,7 +284,6 @@ const FIAApplicationStep1: React.FC = () => {
                 className="ceres-input"
               />
             </div>
-            
             <div>
               <label htmlFor="zipCode" className="ceres-label">ZIP Code *</label>
               <input
@@ -291,10 +297,9 @@ const FIAApplicationStep1: React.FC = () => {
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
-            <button type="button" className="ceres-btn-secondary" onClick={handleBack}>Back</button>
-            
-            <button type="submit" className="ceres-btn-primary">Continue to Step 2</button>
+          <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+            <button type="button" onClick={handleBack} className="ceres-btn ceres-btn-secondary">Back</button>
+            <button type="submit" className="ceres-btn ceres-btn-primary">Continue to Step 2</button>
           </div>
         </form>
       </div>

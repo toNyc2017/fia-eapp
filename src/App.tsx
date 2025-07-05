@@ -9,6 +9,7 @@ import JointOwnerQuestion from './pages/JointOwnerQuestion';
 import JointOwnerInfo from './pages/JointOwnerInfo';
 import SimplifiedOwnerInfo from './pages/SimplifiedOwnerInfo';
 import SimplifiedJointOwnerInfo from './pages/SimplifiedJointOwnerInfo';
+import SuitabilityQuestionnaire from './pages/SuitabilityQuestionnaire';
 import SideNav from './components/SideNav';
 
 const DevModeToggle: React.FC = () => {
@@ -68,6 +69,7 @@ function App() {
                       <Route path="/fia-application/:sessionId/owner-info" element={<SimplifiedOwnerInfo />} />
             <Route path="/fia-application/:sessionId/joint-owner-question" element={<JointOwnerQuestion />} />
             <Route path="/fia-application/:sessionId/joint-owner-info" element={<SimplifiedJointOwnerInfo />} />
+          <Route path="/fia-application/:sessionId/suitability" element={<SuitabilityQuestionnaire />} />
           <Route path="/fia-application/:sessionId/beneficiary-info" element={<div>Beneficiary Info - Coming Soon!</div>} />
           <Route path="/fia-application/:sessionId/step/3" element={<div>Step 3 - Coming Soon!</div>} />
           <Route path="*" element={<Navigate to="/" replace />} />
